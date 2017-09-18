@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!--二级缓存-->
+		<setting name="cacheEnabled" value="true"/>
+		<!--驼峰命名，当我们数据库的值为user_name的形式，我们依然可以用userName的方式-->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!--保证oracle等不支持null的可以存储null-->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<!--当我们jdk为1.8时，允许参数名作为取值名，默认就为true这里配置作一个记录-->
+		<setting name="useActualParamName" value="true"/>
+	</settings>
+
+
+	<!--
+       typeAliases别名处理器的作用，我们经常对返回的类型写一长串路径。而我们可以对起别名来进行
+       省事
+       typeAlias 为某个java类型起别名
+       type写路径，如果我们不写alias则由全小写的employee取代，或者可以在后面加上alias="employee"
+
+        package标签会对某个包及其下面的附带包的所有javabean起别名。别名 为类名小写。
+
+        (其实大写也可以)
+
+        这里注意一下，由于我们有可能在package的包里面有两个相同名称的Employee，所以我们通过注解@Alias("emp")来
+        区分这两个不同却同名的javabean。
+   -->
+	<typeAliases>
+		<package name="com.shmilyz.graduation.bean"/>
+	</typeAliases>
+	
+	<plugins>
+		<!--设置分页插件-->
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!--分页参数合理化  -->
+			<!--虽然我们设置了不可点击 但也有点击事件，所以我们设置该属性，不能超过我们的总条数，不能小于1-->
+			<property name="reasonable" value="true"/>
+		</plugin>
+	</plugins>
+
+</configuration>
+
