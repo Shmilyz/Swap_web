@@ -21,12 +21,31 @@
 
     <!--数据源，实现c3p0类，为下面调用数据源做准备-->
     <context:property-placeholder location="classpath:dbcconfig.properties" />
-    <bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+ <!--   <bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
         <property name="driverClass" value="${jdbc.driverClass}"></property>
         <property name="user" value="${jdbc.user}"></property>
         <property name="password" value="${jdbc.password}"></property>
+    </bean>-->
+<!--数据源，实现hikari类，为下面调用数据源做准备-->
+    <bean id = "pooledDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClass}" />
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}" />
+        <property name="username" value="${jdbc.user}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="maximumPoolSize" value="100" />
+        <property name="minimumIdle" value="10" />
+        <property name="connectionTestQuery" value="select 1" />
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="prepStmtCacheSize">250</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+                <prop key="useServerPrepStmts">true</prop>
+            </props>
+        </property>
     </bean>
+
 
     <!--Spring处理Mybatis相关-->
     <!--创建mybatis的sqlSessionFactory-->
