@@ -22,7 +22,7 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
-    <!--处理静态资源，讲没有映射的请求发送给Tomcat去处理-->
+    <!--请求先在这里处理一遍，如果有对应的请求在交给dispatcherServlet，没有的话则交给Tomcat进行处理，也可以处理静态资源，讲没有映射的请求发送给Tomcat去处理-->
     <mvc:default-servlet-handler/>
     <!--springmvc 必配，处理303等问题-->
     <mvc:annotation-driven/>

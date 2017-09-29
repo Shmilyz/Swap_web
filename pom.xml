@@ -160,7 +160,7 @@
     </dependency>
 
     <!-- log end -->
-    <!-- 映入JSON -->
+    <!-- 映入JSON,为了能让@ResponseBody正常使用 -->
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-mapper-asl</artifactId>
