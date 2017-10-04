@@ -21,6 +21,7 @@
 <body>
 <c:if test="${! empty sessionScope.username}">
     ${sessionScope.username}
+    ${APP_PATH }
 
 </c:if>
 <c:if test="${ empty sessionScope.username}">

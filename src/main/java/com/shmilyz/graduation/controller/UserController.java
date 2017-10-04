@@ -1,11 +1,13 @@
 package com.shmilyz.graduation.controller;
 
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
 import com.shmilyz.graduation.bean.UserInfo;
 import com.shmilyz.graduation.others.Msg;
+import com.shmilyz.graduation.others.Sms.SmsMethod;
+import com.shmilyz.graduation.service.SmsService;
 import com.shmilyz.graduation.service.UserService;
 import com.shmilyz.graduation.utils.MD5;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +20,34 @@ import java.util.*;
  */
 @Controller
 @SessionAttributes(value = "username")
-public class UserContrpller {
+public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SmsService smsService;
+
+    @ResponseBody
+    @RequestMapping(value = "/code",method = RequestMethod.POST)
+    public Msg userSign(@RequestParam("userName") String userName, @RequestParam("userPass") String userPass) throws Exception{
+        String code= String.valueOf((int)((Math.random()*9+1)*100000));
+        //发短信
+        SendSmsResponse response = smsService.sendSms(userName,code);
+
+//
+        if (response.getCode() != null && response.getCode().equals("OK")){
+
+            return Msg.success().add("sms",code);
+
+
+        }else {
+
+            return Msg.fail();
+
+        }
+
+    }
 
 
     @ResponseBody
@@ -44,6 +70,11 @@ public class UserContrpller {
 
         }
     }
+
+
+
+
+
     @RequestMapping(value = "/a",method = RequestMethod.GET)
     public String  a(){
 
