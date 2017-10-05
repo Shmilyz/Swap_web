@@ -108,7 +108,7 @@
     $("#page_sign").click(function () {
 
         var page_first_show=$("#page_first_show");
-        var sign_content=$("<h4 style='color: #ffffff;margin-top: 150px;font-weight: 300'>用户登录</h4>" +"<form id='get_info_sign'>"+
+        var sign_content=$("<h4 style='color: #ffffff;margin-top: 150px;font-weight: 300'>用户注册</h4>" +"<form id='get_info_sign'>"+
             "<input type='text' class='form-control input-lg' id='InputUser' placeholder='手机号' style='background: inherit;margin-top: 60px;color: #FFFFFF;font-size: 15px' name='userName'/>" +
             "<input type='password' class='form-control input-lg' id='InputPass' placeholder='请输入您的密码' style='background: inherit;margin-top: 30px;color: #FFFFFF;font-size: 15px'  name='userPass'/>"+"</form>"
         );
