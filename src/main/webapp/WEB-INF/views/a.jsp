@@ -19,12 +19,14 @@
     %>
 </head>
 <body>
-<c:if test="${! empty sessionScope.username}">
-    ${sessionScope.username}
+<c:if test="${! empty sessionScope.userid}">
+        ${sessionScope.username}
+
+    ${sessionScope.userid}
     ${APP_PATH }
 
 </c:if>
-<c:if test="${ empty sessionScope.username}">
+<c:if test="${ empty sessionScope.userid}">
     <script type="text/javascript">
 
         window.location.href="${APP_PATH }/";

@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Shmily_Z on 2017/9/9.
@@ -25,11 +23,18 @@ public class UserService {
 
     private final static Logger logger = LoggerFactory.getLogger(UserService.class);
 
+
+    public void signUser(UserInfo userInfo) {
+        userInfoMapper.insertSelective(userInfo);
+        Integer userid=userInfo.getUserId();
+
+    }
+
 /*
-* 按照给定的userName和userPass去搜素是否存在符合的值，返回boolean
-*返回true则代表登录失败，返回false则代表登录成功
+* 按照给定的userName和userPass去搜素是否存在符合的值，返回List<UserInfo>
+*去判断是否查到对应的账号密码
 * */
-    public  List<UserInfo> loginUser(String userName,String userPass){
+    public  List<UserInfo> getloginUser(String userName, String userPass){
 
         UserInfoExample employeeExample=new UserInfoExample();
         UserInfoExample.Criteria criteria=employeeExample.createCriteria();
@@ -42,6 +47,8 @@ public class UserService {
         return userInfo;
 
     }
+
+//    该方法判断输入账户的类型
     private void isNumeric(String str, UserInfoExample.Criteria criteria){
 //        String first=str.substring(0,1);
         if (VerifyUtils.email(str)){

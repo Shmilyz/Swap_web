@@ -172,7 +172,11 @@
                     success:function (result) {
 
                         if (result.code==100){
-                            alert(result.entend.sms)
+                            result_code=result.entend.sms;
+                        }else {
+
+                            alert("您今天发送次数过多!")
+
                         }
 
                     }
@@ -202,12 +206,38 @@
 
             var Code_val=$("#get_info_sign #Code").val().trim();
             if (Code_val!=''&&Code_val!=null){
-                var aaa=$("#get_info_sign").serialize();
-                alert(aaa)
+
+
+                $.ajax({
+                    url:"${APP_PATH}/sign",
+                    type:"POST",
+                    data:$("#get_info_sign").serialize(),
+                    success:function (result) {
+
+                        if (result.code==100){
+                            window.location.href="${APP_PATH }/a";
+                        }else {
+
+                            var sign_h6_false_code=$("<h6 id='sign_h6_false_code' style='color: #ffffff;margin-top:10px'>您的验证码输入有误</h6>");
+                            $("#sign_h6_false_code").remove();
+                            $("#sign_h6_false").remove();
+                            $("#sign_content_div").append(sign_h6_false_code);
+
+
+                        }
+
+                    }
+
+                });
+
+
             }
             else {
 
-                alert("请输入")
+                var sign_h6_false=$("<h6 id='sign_h6_false' style='color: #ffffff;margin-top:10px'>请您填写验证码后再验证</h6>");
+                $("#sign_h6_false_code").remove();
+                $("#sign_h6_false").remove();
+                $("#sign_content_div").append(sign_h6_false);
 
             }
 
